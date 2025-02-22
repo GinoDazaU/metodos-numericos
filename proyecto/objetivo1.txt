@@ -6,10 +6,10 @@ conejos = [30, 47.2, 70.2, 77.4, 36.3, 20.6, 18.1, 21.4, 16.0, 25.4, 27.1, 40.3,
 linces = [4, 6.1, 9.8, 35.2, 59.4, 41.7, 29.7, 16.5, 8.3, 9.1, 7.4, 8, 12.3, 19.5, 45.7]';
 
 %% Definir parámetros del modelo Lotka-Volterra
-alpha = 0.4;   % Tasa de crecimiento de las presas
-beta = 0.018;  % Tasa de depredación de las presas por los depredadores
-delta = 0.023; % Eficiencia de conversión de presas en depredadores
-gamma = 0.8;   % Tasa de mortalidad de los depredadores en ausencia de presas
+alpha = 0.4;
+beta = 0.018;
+delta = 0.023;
+gamma = 0.8;
 
 %% Definir funciones del sistema presa-depredador
 f = @(t, x, y) x * (alpha - beta * y); % Ecuación para los conejos
