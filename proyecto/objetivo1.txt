@@ -1,0 +1,44 @@
+clc; clear; close all;
+
+%% Datos
+anios = [1:1:15]'
+conejos = [30, 47.2, 70.2, 77.4, 36.3, 20.6, 18.1, 21.4, 16.0, 25.4, 27.1, 40.3, 57, 76.6, 53.2]';
+linces = [4, 6.1, 9.8, 35.2, 59.4, 41.7, 29.7, 16.5, 8.3, 9.1, 7.4, 8, 12.3, 19.5, 45.7]';
+
+%% Definir parámetros del modelo Lotka-Volterra
+alpha = 0.4;
+beta = 0.018;
+delta = 0.023;
+gamma = 0.8;
+
+%% Definir funciones del sistema presa-depredador
+f = @(t, x, y) x * (alpha - beta * y); % Ecuación para los conejos
+g = @(t, x, y) y * (delta * x - gamma); % Ecuación para los linces
+
+%% Valores iniciales
+a = 1;
+b = 15;
+x0 = 40;  % Conejos iniciales
+y0 = 5;   % Linces iniciales
+h = 1;
+
+%% Llamar a la función RK4
+z = RK4_sist(f, g, a, b, x0, y0, h)
+
+%% Extraer resultados
+t = z(:, 1);
+x = z(:, 2);
+y = z(:, 3);
+
+%% Graficar los resultados
+figure;
+plot(anios, conejos, 'bo-', 'LineWidth', 2, 'MarkerSize', 8, 'DisplayName', 'Datos Conejos');
+hold on;
+plot(anios, linces, 'ro-', 'LineWidth', 2, 'MarkerSize', 8, 'DisplayName', 'Datos Linces');
+plot(t, x, 'b--', 'LineWidth', 2, 'DisplayName', 'RK4 Conejos');
+plot(t, y, 'r--', 'LineWidth', 2, 'DisplayName', 'RK4 Linces');
+xlabel('Año');
+ylabel('Población (miles)');
+legend;
+title('Dinámica Presa-Depredador (Conejos vs Linces) con RK4');
+grid on;
